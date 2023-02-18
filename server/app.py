@@ -1,10 +1,11 @@
 from fastapi import FastAPI, BackgroundTasks
 from pydantic import BaseModel
-import asyncio
+from quiz import generate_quiz
 from utils import download, transcribe
 from search import SearchHandler
 from videos import get_videos
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 
 app = FastAPI()
 
@@ -26,6 +27,10 @@ class SearchQuery(BaseModel):
 class SuppVideoQuery(BaseModel):
     id: str
     timestamp: str
+class QuizRequest(BaseModel):
+    id: str
+    difficulty: str
+    quiz_type:str
 
 search_handler = SearchHandler()
 
@@ -51,7 +56,19 @@ def videos(svq: SuppVideoQuery):
     urls = get_videos(start_time, time, video_id)
     return {"urls": urls}
 
-    
+@app.post("/api/v0/quiz")
+def quiz(qr: QuizRequest):
+    video_id = qr.id
+    diff = qr.difficulty
+    quiz_type = qr.quiz_type
+    path, generated_quiz = generate_quiz(video_id, diff, quiz_type)
+    if generated_quiz is None:
+        return {"quiz": "Error"}, 422
+    return FileResponse(path)
+
+
+
+
 
 
 
