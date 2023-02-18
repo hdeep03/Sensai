@@ -8,7 +8,7 @@ import Footer from "../modules/Footer";
 import { get, post } from "../../utilities.js";
 import { useNavigate } from "react-router-dom";
 
-export default function Home(props) {
+export default function Home(propsgit) {
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
