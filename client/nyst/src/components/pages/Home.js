@@ -25,6 +25,14 @@ function Home() {
     console.log({
       link: data.get("link"),
     });
+
+    post("http://localhost:8000/api/v0/process", {
+      video: data.get("link"),
+    }).then((status) => {
+      if (status["Transcript Status"] == "Success") {
+        console.log("haha lets go");
+      }
+    });
   };
   return (
     <>
