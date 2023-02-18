@@ -14,8 +14,13 @@ import {
 
 import { get, post } from "../../utilities.js";
 
-function Video() {
-  return <>sdavczasadsa</>;
+function Video(props) {
+  const source = "https://www.youtube.com/embed/" + props.vidId;
+  return (
+    <>
+      <iframe src={source} title="your lecture"></iframe>
+    </>
+  );
 }
 
 export default Video;
