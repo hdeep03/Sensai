@@ -3,7 +3,8 @@ import "./App.css";
 import "../utilities.css";
 import Home from "./pages/Home";
 import Video from "./pages/Video";
-import { Router } from "@reach/router";
+import NavBar from "./modules/Navbar";
+// import { Router } from "@reach/router";
 import React from "react";
 import {
   AppBar,
@@ -14,66 +15,22 @@ import {
   Typography,
   Card,
 } from "@mui/material";
+import { Routes, Route, Outlet, Link } from "react-router-dom";
 
 import { get, post } from "../utilities.js";
 
 function App() {
-  const pages = ["Home", "About Us"];
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
   return (
-    <div className="App">
-      <AppBar position="static">
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Toolbar>
-        </Container>
-      </AppBar>
-      <Router>
-        <Home path="/" />
-        <Video path="/video" />
-      </Router>
-    </div>
+    <>
+      <div className="App">
+        Hullo!
+        <NavBar />
+      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/video" element={<Video />} />
+      </Routes>
+    </>
   );
 }
 
