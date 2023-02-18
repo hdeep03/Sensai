@@ -156,11 +156,7 @@ const Controls = forwardRef(
             container
             direction="row"
             alignItems="center"
-<<<<<<< HEAD
-            justify="space-between"
-=======
             justifyContent="space-between"
->>>>>>> d2ea763 (sgwsfgergwg stupid button visibility)
             style={{ padding: 16 }}
           >
             <Grid item>
