@@ -724,3 +724,8 @@
     transform: rotate(360deg);
   }
 }
+
+.carousel-caption {
+  top: 50%;
+  bottom: auto;
+}

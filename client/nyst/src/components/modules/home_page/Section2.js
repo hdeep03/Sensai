@@ -2,6 +2,8 @@ import "../../pages/Home.css";
 import "../../../utilities.css";
 // import { Router } from "@react/router";
 import React from "react";
+import ScrollAnimation from "react-animate-on-scroll";
+import "animate.css/animate.min.css";
 import {
   AppBar,
   Container,
@@ -35,40 +37,50 @@ function Section2() {
     });
   };
   return (
-    <>
-      <Grid
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justify="center"
-        style={{ minHeight: "100vh", minWidth: "100vw" }}
-      >
-        <Card variant="outlined">
-          <Typography variant="h5" component="div">
-            Type your youtube link!
-          </Typography>
-        </Card>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            fullWidth
-            id="link"
-            label="Link to Video"
-            name="link"
-            autoFocus
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Submit
-          </Button>
-        </Box>
-      </Grid>
-    </>
+    <div className="section-2" id="information">
+      <div className="sp-title">
+        <div className="sp-divider" />
+            <ScrollAnimation
+                animateIn="animate__backInRight"
+                animateOut="animate__backOutRight"
+                animateOnce={true}
+                duration={1}
+            >
+                <Grid
+                    container
+                    spacing={0}
+                    direction="column"
+                    alignItems="center"
+                    justify="center"
+                    style={{ minHeight: "20vh", minWidth: "100vw" }}
+                >
+                    <Card variant="outlined">
+                    <Typography variant="h5" component="div">
+                        Type your youtube link!
+                    </Typography>
+                    </Card>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <TextField
+                        margin="normal"
+                        fullWidth
+                        id="link"
+                        label="Link to Video"
+                        name="link"
+                        autoFocus
+                    />
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                    >
+                        Submit
+                    </Button>
+                    </Box>
+                </Grid>
+            </ScrollAnimation>
+        </div>
+      </div>
   );
 }
 
