@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Header({ page, background }) {
+export default function Navbar({ page, background }) {
   console.log(page);
   return (
     <div style={{ position: "fixed", top: "0px" }} className={`header`}>
