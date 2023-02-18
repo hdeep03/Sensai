@@ -10,11 +10,21 @@ import {
   MenuItem,
   Typography,
   Card,
+  Box,
+  TextField,
+  Button,
 } from "@mui/material";
 
 import { get, post } from "../../utilities.js";
 
 function Home() {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      link: data.get("link"),
+    });
+  };
   return (
     <>
       <Container maxWidth="sm">
@@ -23,6 +33,24 @@ function Home() {
             Type your youtube link!
           </Typography>
         </Card>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            fullWidth
+            id="link"
+            label="Link to Video"
+            name="link"
+            autoFocus
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Submit
+          </Button>
+        </Box>
       </Container>
     </>
   );
