@@ -27,7 +27,7 @@ function Home() {
     });
 
     post("http://localhost:8000/api/v0/process", {
-      video: data.get("link"),
+      id: data.get("link"),
     }).then((status) => {
       if (status["Transcript Status"] == "Success") {
         console.log("haha lets go");
@@ -44,34 +44,29 @@ function Home() {
         justify="center"
         style={{ minHeight: "100vh", minWidth: "100vw" }}
       >
-          <Card variant="outlined">
-            <Typography variant="h5" component="div">
-              Type your youtube link!
-            </Typography>
-          </Card>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
+        <Card variant="outlined">
+          <Typography variant="h5" component="div">
+            Type your youtube link!
+          </Typography>
+        </Card>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
+            fullWidth
+            id="link"
+            label="Link to Video"
+            name="link"
+            autoFocus
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
           >
-            <TextField
-              margin="normal"
-              fullWidth
-              id="link"
-              label="Link to Video"
-              name="link"
-              autoFocus
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Submit
-            </Button>
-          </Box>
+            Submit
+          </Button>
+        </Box>
       </Grid>
     </>
   );
