@@ -4,9 +4,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500&display=swap");
 :root {
   --sub_title_color: rgb(242, 242, 242);
-  --yellow_title: #00cba4;
-  --sp_service_title: #007eae;
-  --sp_service_content: #32568b;
+  --yellow_title: #802424;
+  --sp_service_title: #353535;
+  --sp_service_content: #626262;
   --audit_button_border: #de78b3;
   --linear-header: linear-gradient(to right, #813030, rgba(122, 122, 122, 0.473));
   --linear_title: linear-gradient(to right, #9c6cb0, #32568b);
@@ -367,12 +367,12 @@
   margin-left: auto;
   margin-right: auto;
   width: 80%;
-  padding-top: 2.5em;
+  padding-top: 1.5em;
   color: var(--yellow_title);
   font-size: 1.8rem;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: left;
+  justify-content: celeftnter;
 }
 
 .sp-title-content {
@@ -400,7 +400,8 @@
 }
 
 .sp-content-image img {
-  width: 450px;
+  width: 600px;
+  z-index: 0;
 }
 
 .sp-service {
