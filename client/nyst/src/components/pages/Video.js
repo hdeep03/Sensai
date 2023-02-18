@@ -19,7 +19,7 @@ import { findDOMNode } from "react-dom";
 import logo from "../../unsure.jpg";
 import Popup from "../modules/Popup";
 import Search from "../modules/Search";
-import "./Player.css";
+import "../modules/Player.css";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -177,9 +177,24 @@ export const strings = [];
 function Video(props) {
   const [isOpen, setIsOpen] = useState(false);
 
+  const source = "https://www.youtube.com/watch?v=" + props.vidId;
+
   const togglePopup = () => {
     setIsOpen(!isOpen);
   };
+
+  const [butVis, setVis] = useState("hidden");
+
+  useEffect(() => {
+    if (props.trans) {
+      setVis("hidden");
+
+      console.log("umm doing this?", props.trans, butVis);
+    } else {
+      setVis("hidden");
+      console.log("umm not doing this?", props.trans, butVis);
+    }
+  });
 
   const classes = useStyles();
   const [showControls, setShowControls] = useState(false);
@@ -365,8 +380,8 @@ function Video(props) {
             <Popup
               content={
                 <>
-                  <div class="child flex-child">
-                    <h1 class="headingText">
+                  <div className="child flex-child">
+                    <h1 className="headingText">
                       Section Help at {strings.slice(-1)[0]} Second(s)
                     </h1>
                     <br></br>
@@ -376,19 +391,19 @@ function Video(props) {
                     <br></br>
                     <br></br>
                     <br></br>
-                    <h2 class="paraText">
+                    <h2 className="paraText">
                       Supplemental Videos for this Section
                     </h2>
                     <br></br>
                     <p align="center">
                       <iframe
-                        class="frameVid"
+                        className="frameVid"
                         id="ytplayer"
                         type="text/html"
                         width="50%"
                         height="400px"
                         src="https://www.youtube.com/embed/oGgHEBZD-ZQ"
-                        frameborder="0"
+                        frameBorder="0"
                       ></iframe>
                     </p>
 
@@ -399,13 +414,13 @@ function Video(props) {
 
                     <p align="center">
                       <iframe
-                        class="frameVid"
+                        className="frameVid"
                         id="ytplayer"
                         type="text/html"
                         width="50%"
                         height="400px"
                         src="https://www.youtube.com/embed/oGgHEBZD-ZQ"
-                        frameborder="0"
+                        frameBorder="0"
                       ></iframe>
                     </p>
                     <br></br>
@@ -415,13 +430,13 @@ function Video(props) {
 
                     <p align="center">
                       <iframe
-                        class="frameVid"
+                        className="frameVid"
                         id="ytplayer"
                         type="text/html"
                         width="50%"
                         height="400px"
                         src="https://www.youtube.com/embed/oGgHEBZD-ZQ"
-                        frameborder="0"
+                        frameBorder="0"
                       ></iframe>
                     </p>
 
@@ -432,13 +447,13 @@ function Video(props) {
 
                     <p align="center">
                       <iframe
-                        class="frameVid"
+                        className="frameVid"
                         id="ytplayer"
                         type="text/html"
                         width="50%"
                         height="400px"
                         src="https://www.youtube.com/embed/oGgHEBZD-ZQ"
-                        frameborder="0"
+                        frameBorder="0"
                       ></iframe>
                     </p>
                   </div>
@@ -449,8 +464,8 @@ function Video(props) {
           )}
         </div>
 
-        <div class="parent flex-parent">
-          <div class="child flex-child">
+        <div className="parent flex-parent">
+          <div className="child flex-child">
             <div
               onMouseMove={handleMouseMove}
               onMouseLeave={hanldeMouseLeave}
@@ -462,7 +477,7 @@ function Video(props) {
                 width="100%"
                 height="100%"
                 className="react-player"
-                url="https://www.youtube.com/watch?v=7sDY4m8KNLc"
+                url={source}
                 pip={pip}
                 playing={playing}
                 controls={false}
@@ -475,7 +490,7 @@ function Video(props) {
                 config={{
                   file: {
                     attributes: {
-                      crossorigin: "anonymous",
+                      crossOrigin: "anonymous",
                     },
                   },
                 }}
@@ -486,8 +501,8 @@ function Video(props) {
                 onSeek={handleSeekChange}
                 onSeekMouseDown={handleSeekMouseDown}
                 onSeekMouseUp={handleSeekMouseUp}
-                onDuration={handleDuration}
-                onRewind={handleRewind}
+                // onDuration={handleDuration}
+                // onRewind={handleRewind}
                 onPlayPause={handlePlayPause}
                 onFastForward={handleFastForward}
                 playing={playing}
@@ -504,6 +519,7 @@ function Video(props) {
                 onToggleFullScreen={toggleFullScreen}
                 volume={volume}
                 onBookmark={addBookmark}
+                trans={props.trans}
               />
             </div>
 
@@ -535,11 +551,6 @@ function Video(props) {
               ))}
             </Grid>
           </div>
-          <AppBar position="fixed">
-            <Toolbar>
-              <Typography>Sens.AI</Typography>
-            </Toolbar>
-          </AppBar>
         </div>
 
         <canvas ref={canvasRef} />

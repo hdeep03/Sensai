@@ -3,7 +3,7 @@ import "./App.css";
 import "../utilities.css";
 import Home from "./pages/Home";
 import Video from "./pages/Video";
-import NavBar from "./modules/Navbar";
+import Navbar from "./modules/Navbar";
 // import { Router } from "@reach/router";
 import React, { useState } from "react";
 import {
@@ -21,14 +21,18 @@ import { get, post } from "../utilities.js";
 
 function App() {
   const [vidId, setId] = useState("");
+  const [trans, setTrans] = useState(Boolean(0));
 
   return (
-    <Routes>
-      <Route path="/" element={<Home setId={setId} />} />
-      {/* <Route path="/about-us" element={<AboutUs />} />
+    <>
+      <Navbar page="home" />
+      <Routes>
+        <Route path="/" element={<Home setId={setId} setTrans={setTrans} />} />
+        {/* <Route path="/about-us" element={<AboutUs />} />
       <Route path="/video-player" element={<VideoPlayer />} /> */}
-      <Route path="/video" element={<Video />} vidId={vidId} />
-    </Routes>
+        <Route path="/video" element={<Video vidId={vidId} trans={trans} />} />
+      </Routes>
+    </>
   );
 }
 

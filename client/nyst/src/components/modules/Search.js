@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import BookmarkIcon from "@material-ui/icons/Search";
 
 const Search = () => {
-  const { strings } = require("./App.js");
+  const { strings } = require("../pages/Video.js");
   const [textInput, setTextInput] = useState("");
 
   const handleTextInputChange = (event) => {
@@ -15,13 +15,13 @@ const Search = () => {
 
   return (
     <form action="/" method="get">
-      <div class="flexContainer">
+      <div className="flexContainer">
         <TextField
           value={textInput}
           onChange={handleTextInputChange}
           id="outlined-basic"
           variant="outlined"
-          fullWidth="true"
+          fullWidth
           label="Ask Your Questions Here"
         />
         <Button

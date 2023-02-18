@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
@@ -17,6 +17,7 @@ import VolumeDown from "@material-ui/icons/VolumeDown";
 import VolumeMute from "@material-ui/icons/VolumeOff";
 import FullScreen from "@material-ui/icons/Fullscreen";
 import Popover from "@material-ui/core/Popover";
+import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 
 const useStyles = makeStyles((theme) => ({
   controlsWrapper: {
@@ -100,7 +101,7 @@ const Controls = forwardRef(
       onSeek,
       onSeekMouseDown,
       onSeekMouseUp,
-      onDuration,
+      //   onDuration,
       onRewind,
       onPlayPause,
       onFastForward,
@@ -118,6 +119,7 @@ const Controls = forwardRef(
       volume,
       onVolumeChange,
       onBookmark,
+      trans,
     },
     ref
   ) => {
@@ -133,26 +135,38 @@ const Controls = forwardRef(
 
     const open = Boolean(anchorEl);
     const id = open ? "simple-popover" : undefined;
+    const [butVis, setVis] = useState("hidden");
 
+    useEffect(() => {
+      if (trans) {
+        setVis("visible");
+      } else {
+        setVis("hidden");
+      }
+    });
     return (
       <div ref={ref} className={classes.controlsWrapper}>
         <Grid
           container
           direction="column"
-          justify="space-between"
+          justifyContent="space-between"
           style={{ flexGrow: 1 }}
         >
           <Grid
             container
             direction="row"
             alignItems="center"
+<<<<<<< HEAD
             justify="space-between"
+=======
+            justifyContent="space-between"
+>>>>>>> d2ea763 (sgwsfgergwg stupid button visibility)
             style={{ padding: 16 }}
           >
             <Grid item>
               <Typography variant="h5" style={{ color: "#fff" }}></Typography>
             </Grid>
-            <Grid item>
+            <Grid item style={{ visibility: butVis }}>
               <Button
                 onClick={onBookmark}
                 variant="contained"
@@ -163,7 +177,12 @@ const Controls = forwardRef(
               </Button>
             </Grid>
           </Grid>
-          <Grid container direction="row" alignItems="center" justify="center">
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            justifyContent="center"
+          >
             <IconButton
               onClick={onRewind}
               className={classes.controlIcons}
@@ -197,7 +216,7 @@ const Controls = forwardRef(
           <Grid
             container
             direction="row"
-            justify="space-between"
+            justifyContent="space-between"
             alignItems="center"
             style={{ padding: 16 }}
           >
@@ -213,7 +232,7 @@ const Controls = forwardRef(
                 onChange={onSeek}
                 onMouseDown={onSeekMouseDown}
                 onChangeCommitted={onSeekMouseUp}
-                onDuration={onDuration}
+                // onDuration={onDuration}
               />
             </Grid>
 
@@ -334,7 +353,7 @@ Controls.propTypes = {
   onSeek: PropTypes.func,
   onSeekMouseDown: PropTypes.func,
   onSeekMouseUp: PropTypes.func,
-  onDuration: PropTypes.func,
+  //   onDuration: PropTypes.func,
   onRewind: PropTypes.func,
   onPlayPause: PropTypes.func,
   onFastForward: PropTypes.func,
