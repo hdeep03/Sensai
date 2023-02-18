@@ -21,14 +21,12 @@ import { get, post } from "../utilities.js";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about-us" element={<AboutUs />} />
-        <Route path="/video-player" element={<VideoPlayer />} />
-        <Route path="/video" element={<Video />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/about-us" element={<AboutUs />} />
+      <Route path="/video-player" element={<VideoPlayer />} />
+      <Route path="/video" element={<Video />} />
+    </Routes>
   );
 }
 
