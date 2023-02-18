@@ -36,13 +36,6 @@ function Home() {
         justify="center"
         style={{ minHeight: "100vh", minWidth: "100vw" }}
       >
-        <Grid
-          container
-          direction="row"
-          justify="flex-end"
-          alignItems="center"
-          style={{ minHeight: "100vh" }}
-        >
           <Card variant="outlined">
             <Typography variant="h5" component="div">
               Type your youtube link!
@@ -71,7 +64,6 @@ function Home() {
               Submit
             </Button>
           </Box>
-        </Grid>
       </Grid>
     </>
   );
