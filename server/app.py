@@ -6,7 +6,7 @@ from search import SearchHandler
 from videos import get_videos
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
-
+from questions import answer_question
 app = FastAPI()
 
 origins = ["*"]
@@ -31,6 +31,9 @@ class QuizRequest(BaseModel):
     id: str
     difficulty: str
     quiz_type:str
+
+class Query(BaseModel):
+    query: str
 
 search_handler = SearchHandler()
 
@@ -65,6 +68,12 @@ def quiz(qr: QuizRequest):
     if generated_quiz is None:
         return {"quiz": "Error"}, 422
     return FileResponse(path)
+
+@app.post("/api/v0/question")
+def question(sq: Query):
+    query = sq.query
+    return {"answer": answer_question(query)}
+    
 
 
 
