@@ -23,8 +23,8 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/about-us" element={<AboutUs />} />
-      <Route path="/video-player" element={<VideoPlayer />} />
+      {/* <Route path="/about-us" element={<AboutUs />} />
+      <Route path="/video-player" element={<VideoPlayer />} /> */}
       <Route path="/video" element={<Video />} />
     </Routes>
   );
