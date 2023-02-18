@@ -3,6 +3,7 @@ import "../../../utilities.css";
 // import { Router } from "@react/router";
 import React from "react";
 import ScrollAnimation from "react-animate-on-scroll";
+import ComponentsProgram from "../ComponentsProgram";
 import "animate.css/animate.min.css";
 import {
   AppBar,
@@ -39,7 +40,7 @@ function Section2() {
   return (
     <div className="section-2" id="information">
       <div className="sp-title">
-        <div className="sp-divider" />
+        <div className="sp-content" />
             <ScrollAnimation
                 animateIn="animate__backInRight"
                 animateOut="animate__backOutRight"
@@ -52,13 +53,14 @@ function Section2() {
                     direction="column"
                     alignItems="center"
                     justify="center"
-                    style={{ minHeight: "20vh", minWidth: "100vw" }}
-                >
-                    <Card variant="outlined">
-                    <Typography variant="h5" component="div">
-                        Type your youtube link!
-                    </Typography>
-                    </Card>
+                    style={{ minHeight: "0vh", minWidth: "100vw" }}
+                >   <div className="sp-title">
+                        <div className="sp-divider" />
+                        <div className="sp-title-content">
+                            Begin using SensAI by pasting a YouTube link here!
+                        </div>
+                    </div>
+                    
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                     <TextField
                         margin="normal"
@@ -80,7 +82,27 @@ function Section2() {
                 </Grid>
             </ScrollAnimation>
         </div>
+        <div className="audit-title" />\
+      <div className="sp-title">
+        <div className="sp-divider" />
+            <ScrollAnimation
+                    animateIn="animate__backInLeft"
+                    animateOut="animate__backOutLeft"
+                    animateOnce={true}
+                    duration={1}
+                >
+                <div className="sp-title-content">
+                    SensAI's Components:
+                </div>
+            </ScrollAnimation>
       </div>
+    <div className="sp-content">
+        <ComponentsProgram />
+        <div className="sp-content-image">
+          <img src="assets/pdf_diagram.png" alt="security program" />
+        </div>
+      </div>
+    </div>
   );
 }
 
