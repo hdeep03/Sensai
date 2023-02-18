@@ -8,33 +8,12 @@ import Footer from "../modules/Footer";
 import { get, post } from "../../utilities.js";
 import { useNavigate } from "react-router-dom";
 
-export default function Home(propsgit) {
-  const navigate = useNavigate();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      link: data.get("link"),
-    });
-
-    post("http://localhost:8000/api/v0/process", {
-      id: data.get("link"),
-    })
-      .then((status) => {
-        if (status["Transcript Status"] == "Success") {
-          console.log("haha lets go");
-        }
-      })
-      .then(() => {
-        props.setId(data.get("link"));
-        navigate("/video");
-      });
-  };
+export default function Home(props) {
   return (
     <div>
       <Navbar page="home" />
       <Section1 />
-      <Section2 />
+      <Section2 setId={props.setId} />
       <Section3 />
       <Footer />
     </div>
