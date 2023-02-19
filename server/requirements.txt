@@ -77,8 +77,6 @@ tabulate==0.9.0
 threadpoolctl==3.1.0
 tifffile==2023.2.3
 tokenizers==0.13.2
-torch==1.13.1
-torchvision==0.14.1
 tqdm==4.64.1
 transformers==4.26.1
 typing_extensions==4.5.0

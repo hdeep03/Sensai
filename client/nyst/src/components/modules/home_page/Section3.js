@@ -5,7 +5,7 @@ import "animate.css/animate.min.css";
 export default function Section3() {
   return (
     <div className="section-3">
-      <img src="assets/home_page_background1.png" alt="bkgnd" />
+      <img src="assets/lecture_hall.jpg" alt="bkgnd" />
       <div className="audit-content">
         <div className="audit-content-details">
           <ScrollAnimation animateIn="animate__zoomInUp" animateOut="animate__zoomOutUp" duration={1}>
@@ -30,7 +30,6 @@ export default function Section3() {
             <span className="audit-button">Load a demo</span>
           </ScrollAnimation>
         </div>
-        <img src="assets/webpage_clipart.png" alt="webpage"/>
       </div>
     </div>
   );

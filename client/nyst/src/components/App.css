@@ -32,7 +32,7 @@
   top: 0;
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: center;
 }
 
 .logo {
@@ -80,17 +80,20 @@
   color: rgb(225, 225, 225);
   border-bottom: 3px solid transparent;
   transition: 0.3s ease-in-out;
+  align-items: center;
 }
 
 .nav-bar ul li:hover {
   color: white;
   cursor: pointer;
+  align-items: center;
 }
 
 .nav-bar-focus {
   color: white;
   cursor: pointer;
   border-bottom: 3px solid white;
+  align-items: center;
 }
 
 /*? Footer  */
@@ -589,9 +592,11 @@
   margin-top: 6em;
 }
 
+
 .about-background {
-  width: 100%;
+  width: 200%;
   position: absolute;
+  background-size: contain;
   top: 0;
   z-index: -1;
 }
@@ -631,7 +636,7 @@
 .emp-title {
   margin-top: 3em;
   text-align: center;
-  color: white;
+  color: rgb(171, 171, 171);
   font-size: 2rem;
   font-family: Poppins;
 }
@@ -663,7 +668,7 @@
 }
 
 .emp-card-info-name {
-  color: white;
+  color: rgb(165, 165, 165);
   font-size: 1.3rem;
   margin-bottom: 1em;
 }

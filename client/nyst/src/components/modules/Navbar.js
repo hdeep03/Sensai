@@ -6,7 +6,7 @@ export default function Navbar({ page, background }) {
   return (
     <div style={{ position: "fixed", top: "0px" }} className={`header`}>
       <div className="logo">
-        <span>SensAI</span>
+        SensAI
       </div>
       <nav className="nav-bar">
         <ul>

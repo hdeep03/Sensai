@@ -14,6 +14,7 @@ export default function Home(props) {
   }, []);
   return (
     <div>
+      <Navbar page="home" />
       <Section1 />
       <Section2 setId={props.setId} setTrans={props.setTrans} />
       <Section3 />

@@ -12,12 +12,12 @@ export default function Footer() {
         </div>
         <div className="footer-contact">
           <div>Treehacks 2023!!!</div>
-          <div>...</div>
+          <div>Footer content 1</div>
 
           <div>
-            ...
+            Footer content 2
           </div>
-          <div>...</div>
+          <div>SensAI</div>
         </div>
       </div>
       <div className="footer-divider" />
