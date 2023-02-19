@@ -207,7 +207,7 @@ function VideoPlayer(props) {
       setVis("hidden");
       console.log("umm not doing this?", props.trans, butVis);
     }
-  });
+  }, []);
 
   const classes = useStyles();
   const [showControls, setShowControls] = useState(false);
@@ -519,7 +519,7 @@ function VideoPlayer(props) {
 function Video(props) {
   return (<div>
     <Navbar page="video-player" />
-    <VideoPlayer vidId={props.vidId}/>
+    <VideoPlayer vidId={props.vidId} trans={props.trans}/>
     <Footer />
     </div>
   );
