@@ -22,10 +22,15 @@ const Search = () => {
     console.log(textInput);
     post("http://localhost:8000/api/v0/question", {
       query: textInput,
-    }).then((resp) => {
-      setResult(resp["answer"]);
-      isDone(false);
-    });
+    })
+      .then((resp) => {
+        setResult(resp["answer"]);
+        isDone(false);
+      })
+      .catch(() => {
+        setResult("The Bot is offline, please try again in a few minutes.");
+        isDone(false);
+      });
   };
 
   return (
