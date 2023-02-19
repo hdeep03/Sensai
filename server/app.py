@@ -7,6 +7,7 @@ from videos import get_videos
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from questions import answer_question
+from notes import create_notes_pdf
 app = FastAPI()
 
 origins = ["*"]
@@ -74,10 +75,8 @@ def question(sq: Query):
     query = sq.query
     return {"answer": answer_question(query)}
     
-
-
-
-
-
-
-
+@app.post("/api/v0/notes")
+def notes(video: VideoID):
+    video_id = video.id
+    notes = create_notes_pdf('f079K1f2WQk')
+    return FileResponse(notes)
