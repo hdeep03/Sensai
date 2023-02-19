@@ -17,6 +17,7 @@ import VolumeDown from "@material-ui/icons/VolumeDown";
 import VolumeMute from "@material-ui/icons/VolumeOff";
 import FullScreen from "@material-ui/icons/Fullscreen";
 import Popover from "@material-ui/core/Popover";
+import { CircularProgress } from "@mui/material";
 import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
 
 const useStyles = makeStyles((theme) => ({
@@ -137,13 +138,27 @@ const Controls = forwardRef(
     const id = open ? "simple-popover" : undefined;
     const [butVis, setVis] = useState("hidden");
 
+    var helpbutton = <CircularProgress />;
+
     useEffect(() => {
       if (trans) {
         setVis("visible");
-        console.log("hahahahahahahahahahahahahahaaha");
+        helpbutton = (
+          <Grid item style={{ visibility: true }}>
+            <Button
+              onClick={onBookmark}
+              variant="contained"
+              color="primary"
+              startIcon={<BookmarkIcon />}
+            >
+              Mark Unsure
+            </Button>
+          </Grid>
+        );
+        console.log("hahahahahahahahahahahahahahaaha", trans);
       } else {
         setVis("hidden");
-        console.log("zssafaefsaefefagar");
+        console.log("zssafaefsaefefagar", trans);
       }
     });
     return (
@@ -164,16 +179,23 @@ const Controls = forwardRef(
             <Grid item>
               <Typography variant="h5" style={{ color: "#fff" }}></Typography>
             </Grid>
-            <Grid item style={{ visibility: butVis }}>
-              <Button
-                onClick={onBookmark}
-                variant="contained"
-                color="primary"
-                startIcon={<BookmarkIcon />}
-              >
-                Mark Unsure
-              </Button>
-            </Grid>
+
+            {trans ? (
+              <Grid item style={{ visibility: true }}>
+                <Button
+                  onClick={onBookmark}
+                  variant="contained"
+                  color="primary"
+                  startIcon={<BookmarkIcon />}
+                >
+                  Mark Unsure
+                </Button>
+              </Grid>
+            ) : (
+              <CircularProgress />
+            )}
+
+            {/* {helpbutton} */}
           </Grid>
           <Grid
             container
