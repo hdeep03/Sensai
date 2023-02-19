@@ -8,6 +8,11 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import Paragraph, SimpleDocTemplate
+styles = getSampleStyleSheet()
+styleN = styles['Normal']
 from textwrap import wrap
 pdfmetrics.registerFont(TTFont('Vera', 'Vera.ttf'))
 pdfmetrics.registerFont(TTFont('VeraBd', 'VeraBd.ttf'))
@@ -54,7 +59,7 @@ def generate_text_notes(video_id):
                 print("discarded:",line)
     return "\n".join(output_lines)
 
-
+'''
 def create_notes_pdf(video_id):
     notes = generate_text_notes(video_id)
     path = os.path.join('static', video_id+'_notes.pdf')
@@ -74,6 +79,22 @@ def create_notes_pdf(video_id):
     c.drawText(t)
     c.save()
     return path
+'''
+def create_notes_pdf(video_id):
+    notes = generate_text_notes(video_id)
+    path = os.path.join('static', video_id+'_notes.pdf')
+    story = []
+    temp_line = notes.split('\n')
+    fin = []
+    for line in temp_line:
+        if line != '':
+            fin.append("\n".join(wrap(line, 80)))
+    out = "\n".join(fin)
+    for x in out.split("\n"):
+        story.append(Paragraph(x, styleN))
+    doc = SimpleDocTemplate(path, pagesize = letter)
+    doc.build(story)
+    return path
 
 if __name__ == "__main__":
-    print(generate_text_notes('f079K1f2WQk'))
+    print(create_notes_pdf('uJymARs8o0Q'))
