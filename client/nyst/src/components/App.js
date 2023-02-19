@@ -22,13 +22,13 @@ import { get, post } from "../utilities.js";
 
 function App() {
   const [vidId, setId] = useState("");
-  const [trans, setTrans] = useState(Boolean(0));
+  const [trans, setTrans] = useState(false);
 
   return (
     <Routes>
-      <Route path="/" element={<Home setId={setId} setTrans={setTrans}/>} />
+      <Route path="/" element={<Home setId={setId} setTrans={setTrans} />} />
       <Route path="/about-us" element={<AboutUs />} />
-      <Route path="/video" element={<Video vidId={vidId} trans={trans}/>} />
+      <Route path="/video" element={<Video vidId={vidId} trans={trans} />} />
     </Routes>
   );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import Section1 from "../modules/home_page/Section1";
 import Section2 from "../modules/home_page/Section2";
@@ -9,6 +9,9 @@ import { get, post } from "../../utilities.js";
 import { useNavigate } from "react-router-dom";
 
 export default function Home(props) {
+  useEffect(() => {
+    props.setTrans(false);
+  }, []);
   return (
     <div>
       <Section1 />

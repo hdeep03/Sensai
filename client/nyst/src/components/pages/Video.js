@@ -5,6 +5,7 @@ import VideoList from "../modules/video/VideoList.js";
 // import React from "react";
 import Navbar from "../modules/Navbar";
 import Footer from "../modules/Footer";
+import { Document, Page, pdfjs } from "react-pdf";
 // import {
 //   AppBar,
 //   Container,
@@ -180,15 +181,17 @@ export const strings = [];
 
 function VideoPlayer(props) {
   const navigate = useNavigate();
-
   useEffect(() => {
     console.log(props.vidId);
     if (!props.vidId) {
       navigate("/");
     }
-  });
+  }, []);
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const [quizFile, setQuizFile] = useState("");
+  const [notesFile, setNotesFile] = useState("");
 
   const source = "https://www.youtube.com/watch?v=" + props.vidId;
 
@@ -196,18 +199,22 @@ function VideoPlayer(props) {
     setIsOpen(!isOpen);
   };
 
-  const [butVis, setVis] = useState("hidden");
-
   useEffect(() => {
     if (props.trans) {
-      setVis("hidden");
-
-      console.log("umm doing this?", props.trans, butVis);
-    } else {
-      setVis("hidden");
-      console.log("umm not doing this?", props.trans, butVis);
+      post("http://localhost:8000/api/v0/quiz", {
+        id: props.vidId,
+        difficulty: "hard",
+        quiz_type: "free response",
+      }).then((ret) => {
+        setQuizFile("http://localhost:8000/" + ret);
+      });
+      post("http://localhost:8000/api/v0/notes", {
+        id: props.vidId,
+      }).then((ret) => {
+        setNotesFile("http://localhost:8000/" + ret);
+      });
     }
-  }, []);
+  }, [props.trans]);
 
   const classes = useStyles();
   const [showControls, setShowControls] = useState(false);
@@ -429,6 +436,7 @@ function VideoPlayer(props) {
               ref={playerContainerRef}
               className={classes.playerWrapper}
             >
+              <TextField></TextField>
               <ReactPlayer
                 ref={playerRef}
                 width="100%"
@@ -507,9 +515,10 @@ function VideoPlayer(props) {
                 </Grid>
               ))}
             </Grid>
+            <iframe src={quizFile} width="100%" height="500px" />
+            <iframe src={notesFile} width="100%" height="500px" />
           </div>
         </div>
-
         <canvas ref={canvasRef} />
       </Container>
     </>
