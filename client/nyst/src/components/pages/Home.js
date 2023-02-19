@@ -17,7 +17,7 @@ export default function Home(props) {
       <Navbar page="home" />
       <Section1 />
       <Section2 setId={props.setId} setTrans={props.setTrans} />
-      <Section3 />
+      <Section3 setId={props.setId} setTrans={props.setTrans}/>
       <Footer />
     </div>
   );

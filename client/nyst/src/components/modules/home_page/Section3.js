@@ -2,7 +2,25 @@ import React from "react";
 import ScrollAnimation from "react-animate-on-scroll";
 import "animate.css/animate.min.css";
 
-export default function Section3() {
+import { get, post } from "../../../utilities.js";
+import { useNavigate } from "react-router-dom";
+
+export default function Section3(props) {
+  const navigate = useNavigate();
+  const handleSubmit = () => {
+    props.setId("https://www.youtube.com/watch?v=f079K1f2WQk");
+    console.log("haha");
+    navigate("/video");
+
+    post("http://localhost:8000/api/v0/process", {
+      id: "f079K1f2WQk",
+    }).then((status) => {
+      if (status["Transcript Status"] == "Success") {
+        props.setTrans(Boolean(1));
+        console.log("haha lets go");
+      }
+    });
+  };
   return (
     <div className="section-3">
       <img src="assets/lecture_hall.jpg" alt="bkgnd" />
@@ -27,7 +45,12 @@ export default function Section3() {
             duration={0.5}
             delay={500}
           >
-            <span className="audit-button">Load a demo</span>
+            <span 
+            className="audit-button"
+            onClick={handleSubmit}
+            >
+              Load a demo
+            </span>
           </ScrollAnimation>
         </div>
       </div>

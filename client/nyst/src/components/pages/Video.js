@@ -435,7 +435,7 @@ function VideoPlayer(props) {
                           parseInt(strings.slice(-1)[0] % 60)) /
                           60
                       )}
-                      :{parseInt(strings.slice(-1)[0] % 60)} Second(s)
+                      :{parseInt(strings.slice(-1)[0] % 60)}
                     </h1>
                     <br></br>
                     <br></br>
