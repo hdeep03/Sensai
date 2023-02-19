@@ -22,7 +22,9 @@ from reportlab.lib.units import inch
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 import cv2
 import torch
+import gc
 import numpy as np
+import requests
 USING_GPU = torch.cuda.is_available()
 
 
@@ -44,35 +46,36 @@ def download_youtube(vidlink,outlocation):
     print("Some Error!")
   video_name = os.listdir(outlocation)[0]
   filep = f"{outlocation}/{os.listdir(outlocation)[0]}"
-  os.rename(filep,"{outlocation}/video.mp4")
+  os.rename(filep,f"{outlocation}/video.mp4")
   return video_name
 
 def extract_every_n_frames_from_video(video_path,every,outfolder):
+    if os.path.exists(outfolder):
+        shutil.rmtree(outfolder)
+    os.makedirs(outfolder)
     os.system(f"ffmpeg -i \"{video_path}\" -vf \"select=not(mod(n\,{every}))\" -vsync vfr {outfolder}/img_%03d.jpg")
 
 def apply_func_to_frames(frames_path, func, start=-1, end=-1):                     
     if start < 0:  # if start isn't specified lets assume 0
         start = 0
     if end < 0:  # if end isn't specified assume the end of the video
-        end = len(vr)
+        end = len(os.listdir(frames_path))
 
     frames_list = list(range(start, end))
     outlist = []
 
     for n,file in enumerate(os.listdir(frames_path)):
         if n in frames_list:
-            outlist.append(func(cv2.cvtColor(np.array(Image.open(f"{frames_path}/{file}")), cv2.COLOR_RGB2BGR)))
+            outlist.append(func(cv2.cvtColor(np.array(PILImage.open(f"{frames_path}/{file}")), cv2.COLOR_RGB2BGR)))
     return outlist
 
 def get_vid_infos(video_path):
-    video_path = os.path.normpath(video_path)  # make the paths OS (Windows) compatible
-    video_dir, video_filename = os.path.split(video_path)  # get the video path and filename from the path
-    assert os.path.exists(video_path)  # assert the video file exists
-
-    vr = VideoReader(video_path, ctx=cpu(0))  # can set to cpu or gpu .. ctx=gpu(0)
+    cap = cv2.VideoCapture(video_path)
+    fps = cap.get(cv2.CAP_PROP_FPS)      # OpenCV v2.x used "CV_CAP_PROP_FPS"
+    frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     return {
-        "fps":vr.get_avg_fps(),
-        "length":len(vr)
+        "fps":fps,
+        "length":frame_count
     }
 
 
@@ -94,10 +97,16 @@ def get_keyframes(frames_path, start=-1, end=-1, every=300, remove_dup_screens=T
     if USING_GPU:
         torch.cuda.set_per_process_memory_fraction(float(1), device=None)
 
-    if not os.path.exists("public/assets/pointrend_resnet50.pkl"):
-        if not os.path.exists("public/assets"):
-            os.makedirs("public/assets"):
-        os.system("curl -o \"pointrend_resnet50.pkl\" \"https://github.com/ayoolaolafenwa/PixelLib/releases/download/0.2.0/pointrend_resnet50.pkl\"")
+    def download_link(url,outp):
+        print(f"downloading {url}...")
+        downloaded_obj = requests.get(url)
+
+        with open(outp, "wb") as file:
+            file.write(downloaded_obj.content)
+
+    if False:#not os.path.exists("public/assets/pointrend_resnet50.pkl"):
+        download_link("https://github.com/ayoolaolafenwa/PixelLib/releases/download/0.2.0/pointrend_resnet50.pkl",
+                        "public/assets/pointrend_resnet50.pkl")
 
     ins = instanceSegmentation()
     ins.load_model("public/assets/pointrend_resnet50.pkl", confidence = 0.2, detection_speed = "rapid")
@@ -288,12 +297,12 @@ def delete_time_proximal_frames(video_keyframes, video_path):
     for keyframe_pos,keyframe in video_keyframes:
         keyframe_timestamp_secs = keyframe_pos*READ_FRAME_INTERVAL/video_fps
         if len(non_dup_keyframes) > 0:
-        if non_dup_keyframes[-1][0]-keyframe_timestamp_secs >= MINIMUM_TIME_DIFFS_SECS:
+            if non_dup_keyframes[-1][0]-keyframe_timestamp_secs >= MINIMUM_TIME_DIFFS_SECS:
+                print(keyframe_timestamp_secs)
+                non_dup_keyframes.append((keyframe_timestamp_secs,keyframe))
+        else:
             print(keyframe_timestamp_secs)
             non_dup_keyframes.append((keyframe_timestamp_secs,keyframe))
-        else:
-        print(keyframe_timestamp_secs)
-        non_dup_keyframes.append((keyframe_timestamp_secs,keyframe))
     non_dup_keyframes.reverse()
     return non_dup_keyframes
 
@@ -390,12 +399,12 @@ def generate_notes_for_keyframes(keyframes, video_transcript):
     ##create intervals for notetaking
     intervals = []
     for n,(keyframe_timestamp_secs,keyframe) in enumerate(keyframes):
-    if n==0:
-        intervals.append(parse_transcript_dict(video_transcript,read_range=(0,keyframe_timestamp_secs)))
-    elif n < len(keyframes)-1:
-        intervals.append(parse_transcript_dict(video_transcript,read_range=(keyframes[n-1][0],keyframe_timestamp_secs)))
-    else:
-        intervals.append(parse_transcript_dict(video_transcript,read_range=(keyframes[n-1][0],video_length+1)))
+        if n==0:
+            intervals.append(parse_transcript_dict(video_transcript,read_range=(0,keyframe_timestamp_secs)))
+        elif n < len(keyframes)-1:
+            intervals.append(parse_transcript_dict(video_transcript,read_range=(keyframes[n-1][0],keyframe_timestamp_secs)))
+        else:
+            intervals.append(parse_transcript_dict(video_transcript,read_range=(keyframes[n-1][0],video_length+1)))
 
     ##generate notes for each interval
     def get_notes(n_and_interval):
@@ -451,25 +460,25 @@ def generate_pdf_from_interval_notes(interval_notes, outp):
 
     def trim_string_to_text_width(string,width):
         def split_to_width(string,width):
-        words = string.split()
+            words = string.split()
 
-        current_segment = []
-        segments = []
-        for word in words:
-            if len(" ".join(current_segment))+1+len(word) > width:
-            segments.append(" ".join(current_segment))
             current_segment = []
-            current_segment.append(word)
-        segments.append(" ".join(current_segment))
-        return segments
+            segments = []
+            for word in words:
+                if len(" ".join(current_segment))+1+len(word) > width:
+                    segments.append(" ".join(current_segment))
+                    current_segment = []
+                    current_segment.append(word)
+            segments.append(" ".join(current_segment))
+            return segments
         output_lines = []
         for line in string.split("\n"):
-        ##check if bulletpoint
-        if line.startswith("-") or line.startswith("*") or line.startswith("."):
-            split_lines = split_to_width(line,width-2)
-            output_lines.extend([("  " if n > 0 else "") + split_line for n,split_line in enumerate(split_lines)])
-        else:
-            output_lines.extend(split_to_width(line,width))
+            ##check if bulletpoint
+            if line.startswith("-") or line.startswith("*") or line.startswith("."):
+                split_lines = split_to_width(line,width-2)
+                output_lines.extend([("  " if n > 0 else "") + split_line for n,split_line in enumerate(split_lines)])
+            else:
+                output_lines.extend(split_to_width(line,width))
         return "\n".join(output_lines)
 
     def detect_note_len(interval_note):
@@ -538,12 +547,6 @@ def generate_pdf_from_interval_notes(interval_notes, outp):
     doc.build(Story)
     shutil.rmtree("imgtmps")
 
-pdfmetrics.registerFont(TTFont('Vera', 'Vera.ttf'))
-pdfmetrics.registerFont(TTFont('VeraBd', 'VeraBd.ttf'))
-pdfmetrics.registerFont(TTFont('VeraIt', 'VeraIt.ttf'))
-pdfmetrics.registerFont(TTFont('VeraBI', 'VeraBI.ttf'))
-
-
 openai.api_key = "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"
 
 ##General settings
@@ -561,7 +564,7 @@ IMAGE_LINES_LIMIT = 14 ##If notes are longer than this many lines, we extend out
 MAX_LINES_LIMIT = 30 ##If notes are longer than this many lines, then we will place the image then text vertically
 
 def create_notes_pdf(video_id):
-    VIDEO_NAME = download_youtube(f"https://www.youtube.com/watch?v={video_id}","videop").split(".")[0]
+    #VIDEO_NAME = download_youtube(f"https://www.youtube.com/watch?v={video_id}","videop").split(".")[0]
 
     extract_every_n_frames_from_video(f"videop/video.mp4",READ_FRAME_INTERVAL,"frames")
     video_keyframes = get_keyframes("frames")
