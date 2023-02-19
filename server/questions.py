@@ -2,7 +2,7 @@ import openai
 from transformers import GPT2TokenizerFast
 import os
 
-openai.api_key = "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"
+openai.api_key = os.environ["OPENAI_API_KEY"]
 
 def answer_question(question):
     prompt = f"Explain this to me as if I am a college student: {question}"
