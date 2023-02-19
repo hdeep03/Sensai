@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from quiz import generate_quiz
 from utils import download, transcribe
 from search import SearchHandler
-from videos import get_videos
+from videos import get_videos, get_keywords
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from questions import answer_question
@@ -85,3 +85,10 @@ def notes(video: VideoID):
     video_id = video.id
     notes = create_notes_pdf(video_id)
     return notes
+
+@app.post("/api/v0/keywords")
+def keywords(video: VideoID):
+    video_id = video.id
+    keywords = get_keywords(video_id)
+    print(keywords)
+    return {"keywords": keywords}

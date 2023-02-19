@@ -195,6 +195,8 @@ function VideoPlayer(props) {
 
   const source = "https://www.youtube.com/watch?v=" + props.vidId;
 
+  const [keyword1, setKeyword1] = useState("");
+  const [keyword2, setKeyword2] = useState("");
   const togglePopup = () => {
     setIsOpen(!isOpen);
   };
@@ -229,7 +231,15 @@ function VideoPlayer(props) {
       }).then((ret) => {
         setNotesFile("http://localhost:8000/" + ret);
         setNotesvis(false);
-      });})
+      });
+      post("http://localhost:8000/api/v0/keywords", {
+        id: youtube_parser(props.vidId),
+      }).then((ret) => {
+        setKeyword1(ret['keywords'][0]);
+        setKeyword2(ret['keywords'][1]);
+      });
+    
+    })
     }
   }, [props.trans]);
 
@@ -538,6 +548,11 @@ function VideoPlayer(props) {
                 </Grid>
               ))}
             </Grid>
+            <br></br>
+            <br></br>
+            <br></br>
+            <h1 align="center">Review Quiz</h1>
+            <br></br>
             <Grid align="center">
               {quizvis ? (
                 <>
@@ -551,7 +566,13 @@ function VideoPlayer(props) {
                 <></>
               )}
             </Grid>
+            
             <iframe src={quizFile} width="100%" height="500px" />
+            <br></br>
+            <br></br>
+            <br></br>
+            <h1 align="center">AI Generated Notes</h1>
+            <br></br>
             <Grid align="center">
               {notesvis ? (
                 <>
@@ -566,6 +587,20 @@ function VideoPlayer(props) {
               )}
             </Grid>
             <iframe src={notesFile} width="100%" height="500px" />
+            <br></br>
+            <br></br>
+            <br></br>
+            <h1 align="center">Beyond the Lecture</h1>
+            <br></br>
+            <p align="center"><iframe src="https://en.valuenex.com/en/login" width="60%" height="1000"></iframe></p>
+            <div>To see how this information can be useful "Beyond the Lecture", here are some important themes that can be integrated with VALUENEX Radar's Scope tool.</div>
+            <br></br>
+            <div>Search Query:</div>
+            <br></br>
+            <div>What do you want to analyze: {keyword1}</div>
+            <div>Secondary Keyword: {keyword2}</div>
+            <br></br>
+            <div>Search all Available Databases and Click Analyze to Extract Valuable Insights.</div>
           </div>
         </div>
         <canvas ref={canvasRef} />

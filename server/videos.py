@@ -38,10 +38,16 @@ def get_videos(start, end, video_id, k=3):
     print(snippet)
     keywords = extract_keywords(snippet)
     print(keywords)
-    query = " ".join([keywords[x][0] for x in range(3)])
+    query = " ".join([keywords[x][0] for x in range(5)])
     videosSearch = VideosSearch(query, limit = 10)
     d = videosSearch.result()
     urls = []
     for item in d['result']:
         urls.append(item['id'])
     return urls
+
+def get_keywords(video_id):
+    transcript = load_transcript(video_id)
+    text = " ".join(transcript['text'])
+    keywords = extract_keywords(text)
+    return [keywords[0][0], keywords[1][0]]
