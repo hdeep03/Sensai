@@ -57,6 +57,7 @@ def videos(svq: SuppVideoQuery):
     video_id = svq.id
     time = int(svq.timestamp)
     start_time = max(0, time-240)
+    time = max(start_time+60, time)
     urls = get_videos(start_time, time, video_id)
     return {"urls": urls}
 

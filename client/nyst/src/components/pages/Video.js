@@ -1,5 +1,6 @@
 import "./Video.css";
 import "../../utilities.css";
+import VideoList from "../modules/video/VideoList.js";
 // // import { Router } from "@react/router";
 // import React from "react";
 // import {
@@ -40,6 +41,7 @@ import Popover from "@material-ui/core/Popover";
 import screenful from "screenfull";
 import Controls from "../modules/Controls";
 import { string } from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   playerWrapper: {
@@ -175,6 +177,14 @@ let count = 0;
 export const strings = [];
 
 function Video(props) {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!props.vidId) {
+      navigate("/");
+    }
+  });
+
   const [isOpen, setIsOpen] = useState(false);
 
   const source = "https://www.youtube.com/watch?v=" + props.vidId;
@@ -395,67 +405,11 @@ function Video(props) {
                       Supplemental Videos for this Section
                     </h2>
                     <br></br>
-                    <p align="center">
-                      <iframe
-                        className="frameVid"
-                        id="ytplayer"
-                        type="text/html"
-                        width="50%"
-                        height="400px"
-                        src="https://www.youtube.com/embed/oGgHEBZD-ZQ"
-                        frameBorder="0"
-                      ></iframe>
-                    </p>
 
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-
-                    <p align="center">
-                      <iframe
-                        className="frameVid"
-                        id="ytplayer"
-                        type="text/html"
-                        width="50%"
-                        height="400px"
-                        src="https://www.youtube.com/embed/oGgHEBZD-ZQ"
-                        frameBorder="0"
-                      ></iframe>
-                    </p>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-
-                    <p align="center">
-                      <iframe
-                        className="frameVid"
-                        id="ytplayer"
-                        type="text/html"
-                        width="50%"
-                        height="400px"
-                        src="https://www.youtube.com/embed/oGgHEBZD-ZQ"
-                        frameBorder="0"
-                      ></iframe>
-                    </p>
-
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-
-                    <p align="center">
-                      <iframe
-                        className="frameVid"
-                        id="ytplayer"
-                        type="text/html"
-                        width="50%"
-                        height="400px"
-                        src="https://www.youtube.com/embed/oGgHEBZD-ZQ"
-                        frameBorder="0"
-                      ></iframe>
-                    </p>
+                    <VideoList
+                      time={playerRef.current.getCurrentTime()}
+                      vidId={props.vidId}
+                    />
                   </div>
                 </>
               }
