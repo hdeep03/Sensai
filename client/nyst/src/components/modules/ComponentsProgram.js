@@ -6,33 +6,30 @@ export default function SecurityProgram() {
     {
       mar: 12,
       title: "1. AI-based Note Taking",
-      content:
-        "some description",
+      content: "some description",
     },
     {
       mar: 10,
       title: "2. Video Querier Powered By Semantic Search",
-      content:
-        "description",
+      content: "description",
     },
     {
       mar: 8,
       title: "3. Automatic Review Question Generation",
-      content:
-        "blub",
+      content: "blub",
     },
     {
       mar: 8,
       title: "4. Valuenex BS",
-      content:
-        "blublublublub",
+      content: "blublublublub",
     },
   ];
 
   return (
     <div>
-      {services.map((service) => (
+      {services.map((service, i) => (
         <ComponentsItem
+          key={i}
           title={service.title}
           content={service.content}
           mar={service.mar}

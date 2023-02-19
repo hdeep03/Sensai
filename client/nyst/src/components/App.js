@@ -6,7 +6,7 @@ import Video from "./pages/Video";
 import AboutUs from "./pages/AboutUs";
 import NavBar from "./modules/Navbar";
 // import { Router } from "@reach/router";
-import React from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Container,
@@ -21,6 +21,9 @@ import { Routes, Route, Outlet, Link } from "react-router-dom";
 import { get, post } from "../utilities.js";
 
 function App() {
+  const [vidId, setId] = useState("");
+  const [trans, setTrans] = useState(Boolean(0));
+
   return (
     <Routes>
       <Route path="/" element={<Home />} />

@@ -20,23 +20,30 @@ import {
 } from "@mui/material";
 
 import { get, post } from "../../../utilities.js";
+import { useNavigate } from "react-router-dom";
 
-function Section2() {
+function Section2(props) {
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
       link: data.get("link"),
     });
+    props.setId(data.get("link"));
+    navigate("/video");
 
     post("http://localhost:8000/api/v0/process", {
       id: data.get("link"),
     }).then((status) => {
       if (status["Transcript Status"] == "Success") {
+        props.setTrans(Boolean(1));
         console.log("haha lets go");
       }
     });
   };
+
   return (
     <div className="section-2" id="information">
       <div className="sp-content" />
@@ -93,7 +100,7 @@ function Section2() {
                 </div>
             </ScrollAnimation>
       </div>
-    <div className="sp-content">
+      <div className="sp-content">
         <ComponentsProgram />
         <div className="sp-content-image">
           <img src="assets/pdf_diagram.png" alt="security program" />

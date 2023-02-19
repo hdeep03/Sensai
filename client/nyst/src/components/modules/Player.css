@@ -1,0 +1,114 @@
+.player-wrapper {
+  border-color: blue;
+  z-index: 900;
+  width: auto;
+  height: auto;
+}
+.react-player {
+  z-index: 900;
+  border-color: blue;
+  height: auto !important;
+  aspect-ratio: 16/9;
+}
+.flex-parent {
+  display: flex;
+}
+.flex-child {
+  flex: 1 0.1;
+}
+
+.headingText {
+  margin-top: 0;
+
+  text-align: center;
+}
+
+.paraText {
+  margin-top: 0;
+  font-weight: normal;
+
+  text-align: center;
+}
+
+.main {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+h1 {
+  margin: 10px;
+  font-size: 40px;
+  color: rgb(1, 1, 59);
+}
+
+.flexContainer {
+  display: flex;
+}
+.inputField {
+  flex: 1;
+}
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.search {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+ul li {
+  font-size: 20px;
+}
+
+.popup-box {
+  position: fixed;
+  z-index: 10;
+  background: #00000050;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+
+.box {
+  position: relative;
+  z-index: -1;
+  width: 70%;
+  margin: 0 auto;
+  height: auto;
+  max-height: 70vh;
+  margin-top: calc(100vh - 85vh - 20px);
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 20px;
+  border: 1px solid #999;
+  overflow: auto;
+}
+
+.close-icon {
+  content: "x";
+  cursor: pointer;
+  position: fixed;
+  right: calc(15% - 30px);
+  top: calc(100vh - 85vh - 33px);
+  background: #ededed;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  line-height: 20px;
+  text-align: center;
+  border: 1px solid #999;
+  font-size: 20px;
+}

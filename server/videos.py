@@ -44,5 +44,3 @@ def get_videos(start, end, video_id, k=3):
         urls.append(item['id'])
         print("https://www.youtube.com/embed/" + item['id'])
     return urls
-
-

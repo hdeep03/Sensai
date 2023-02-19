@@ -18,9 +18,9 @@ export default function Navbar({ page, background }) {
             <li>HOME</li>
           </Link>
           <Link
-            className={page === "video-player" ? "nav-bar-focus" : ""}
+            className={page === "video" ? "nav-bar-focus" : ""}
             style={{ textDecoration: "none" }}
-            to={"/video-player"}
+            to={"/video"}
           >
             <li>VIDEO PLAYER</li>
           </Link>
