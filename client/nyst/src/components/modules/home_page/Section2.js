@@ -25,6 +25,13 @@ import { useNavigate } from "react-router-dom";
 function Section2(props) {
   const navigate = useNavigate();
 
+  function youtube_parser(url) {
+    var regExp =
+      /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    var match = url.match(regExp);
+    return match && match[7].length == 11 ? match[7] : false;
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -32,11 +39,11 @@ function Section2(props) {
       link: data.get("link"),
     });
     props.setId(data.get("link"));
-    console.log('haha');
+    console.log("haha");
     navigate("/video");
 
     post("http://localhost:8000/api/v0/process", {
-      id: data.get("link"),
+      id: youtube_parser(data.get("link")),
     }).then((status) => {
       if (status["Transcript Status"] == "Success") {
         props.setTrans(Boolean(1));
@@ -48,58 +55,61 @@ function Section2(props) {
   return (
     <div className="section-2" id="information">
       <div className="sp-content" />
-            <ScrollAnimation
-                animateIn="animate__backInRight"
-                animateOut="animate__backOutRight"
-                duration={1}
+      <ScrollAnimation
+        animateIn="animate__backInRight"
+        animateOut="animate__backOutRight"
+        duration={1}
+      >
+        <Grid
+          container
+          spacing={0}
+          direction="column"
+          alignItems="center"
+          justify="center"
+          style={{ minHeight: "0vh", minWidth: "100vw" }}
+        >
+          {" "}
+          <div className="sp-title">
+            <div className="sp-divider" />
+            <div className="sp-title-content">
+              Begin using SensAI by pasting a YouTube link here!
+            </div>
+          </div>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 1 }}
+          >
+            <TextField
+              margin="normal"
+              fullWidth
+              id="link"
+              label="Link to Video"
+              name="link"
+              autoFocus
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
             >
-                <Grid
-                    container
-                    spacing={0}
-                    direction="column"
-                    alignItems="center"
-                    justify="center"
-                    style={{ minHeight: "0vh", minWidth: "100vw" }}
-                >   <div className="sp-title">
-                        <div className="sp-divider" />
-                        <div className="sp-title-content">
-                            Begin using SensAI by pasting a YouTube link here!
-                        </div>
-                    </div>
-                    
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                    <TextField
-                        margin="normal"
-                        fullWidth
-                        id="link"
-                        label="Link to Video"
-                        name="link"
-                        autoFocus
-                    />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
-                    >
-                        Submit
-                    </Button>
-                    </Box>
-                </Grid>
-            </ScrollAnimation>
-        
-        <div className="audit-title" />\
+              Submit
+            </Button>
+          </Box>
+        </Grid>
+      </ScrollAnimation>
+      <div className="audit-title" />\
       <div className="sp-title">
         <div className="sp-divider" />
-            <ScrollAnimation
-                    animateIn="animate__backInLeft"
-                    animateOut="animate__backOutLeft"
-                    duration={1}
-                >
-                <div className="sp-title-content">
-                    SensAI's Components:
-                </div>
-            </ScrollAnimation>
+        <ScrollAnimation
+          animateIn="animate__backInLeft"
+          animateOut="animate__backOutLeft"
+          duration={1}
+        >
+          <div className="sp-title-content">SensAI's Components:</div>
+        </ScrollAnimation>
       </div>
       <div className="sp-content">
         <ComponentsProgram />
