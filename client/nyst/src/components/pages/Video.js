@@ -201,12 +201,23 @@ function VideoPlayer(props) {
   const [quizvis, setQuizvis] = useState(false);
   const [notesvis, setNotesvis] = useState(false);
 
+  function sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+  }
+  function youtube_parser(url) {
+    var regExp =
+      /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    var match = url.match(regExp);
+    return match && match[7].length == 11 ? match[7] : false;
+  }
+
   useEffect(() => {
     if (props.trans) {
       setQuizvis(true);
       setNotesvis(true);
+      sleep(5000).then(()=>{
       post("http://localhost:8000/api/v0/quiz", {
-        id: props.vidId,
+        id: youtube_parser(props.vidId),
         difficulty: "hard",
         quiz_type: "free response",
       }).then((ret) => {
@@ -214,11 +225,11 @@ function VideoPlayer(props) {
         setQuizvis(false);
       });
       post("http://localhost:8000/api/v0/notes", {
-        id: props.vidId,
+        id: youtube_parser(props.vidId),
       }).then((ret) => {
         setNotesFile("http://localhost:8000/" + ret);
         setNotesvis(false);
-      });
+      });})
     }
   }, [props.trans]);
 

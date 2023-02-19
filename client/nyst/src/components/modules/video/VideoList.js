@@ -9,9 +9,16 @@ const VideoList = (props) => {
   const [vid3, setVid3] = useState("");
   const [vid4, setVid4] = useState("");
 
+  function youtube_parser(url) {
+    var regExp =
+      /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    var match = url.match(regExp);
+    return match && match[7].length == 11 ? match[7] : false;
+  }
+
   useEffect(() => {
     post("http://localhost:8000/api/v0/videos", {
-      id: props.vidId,
+      id: youtube_parser(props.vidId),
       timestamp: parseInt(Math.round(props.time)),
     }).then((list) => {
       console.log(list["urls"]);

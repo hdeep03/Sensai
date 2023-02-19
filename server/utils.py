@@ -43,11 +43,14 @@ def transcribe(video_id):
 
     with open(transcript_output, 'wb') as f:
         pickle.dump(result, f)
+    print(f'Dumped to {transcript_output}')
     return result
 
 def load_transcript(video_id):
+    path = os.path.join(CACHE_PATH, video_id, video_id+'.pkl')
     if check_transcription_cache(video_id):
-        with open(os.path.join(CACHE_PATH, video_id, video_id+'.pkl'), 'rb') as f:
+        print(path)
+        with open(path, 'rb') as f:
             return pickle.load(f)
     else:
         return None
