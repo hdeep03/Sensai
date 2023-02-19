@@ -32,6 +32,7 @@ function Section2(props) {
       link: data.get("link"),
     });
     props.setId(data.get("link"));
+    console.log('haha');
     navigate("/video");
 
     post("http://localhost:8000/api/v0/process", {

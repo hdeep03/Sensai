@@ -182,6 +182,7 @@ function VideoPlayer(props) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(props.vidId);
     if (!props.vidId) {
       navigate("/");
     }
@@ -515,10 +516,10 @@ function VideoPlayer(props) {
   );
 }
 
-function Video() {
+function Video(props) {
   return (<div>
     <Navbar page="video-player" />
-    <VideoPlayer/>
+    <VideoPlayer vidId={props.vidId}/>
     <Footer />
     </div>
   );

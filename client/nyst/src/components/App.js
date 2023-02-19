@@ -26,9 +26,9 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home setId={setId} setTrans={setTrans}/>} />
       <Route path="/about-us" element={<AboutUs />} />
-      <Route path="/video" element={<Video />} />
+      <Route path="/video" element={<Video vidId={vidId} trans={trans}/>} />
     </Routes>
   );
 }
