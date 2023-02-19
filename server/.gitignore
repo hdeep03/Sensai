@@ -1,0 +1,9 @@
+cache/
+.DS_Store
+secrets.env
+<<<<<<< HEAD
+static/
+
+=======
+.env
+>>>>>>> 7555ea4569f972e1cae662627599f2e89ae0c33f
