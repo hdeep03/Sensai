@@ -17,6 +17,7 @@ pdfmetrics.registerFont(TTFont('Vera', 'Vera.ttf'))
 pdfmetrics.registerFont(TTFont('VeraBd', 'VeraBd.ttf'))
 pdfmetrics.registerFont(TTFont('VeraIt', 'VeraIt.ttf'))
 pdfmetrics.registerFont(TTFont('VeraBI', 'VeraBI.ttf'))
+KEY=os.getenv("KEY")
 
 CACHE_PATH = './cache/'
 openai.api_key = os.environ["OPENAI_API_KEY"]

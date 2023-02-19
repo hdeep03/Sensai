@@ -1,6 +1,7 @@
 import openai
 from transformers import GPT2TokenizerFast
 import os
+KEY=os.getenv("KEY")
 
 openai.api_key = os.environ["OPENAI_API_KEY"]
 

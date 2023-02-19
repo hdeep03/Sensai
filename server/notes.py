@@ -19,7 +19,7 @@ pdfmetrics.registerFont(TTFont('VeraBd', 'VeraBd.ttf'))
 pdfmetrics.registerFont(TTFont('VeraIt', 'VeraIt.ttf'))
 pdfmetrics.registerFont(TTFont('VeraBI', 'VeraBI.ttf'))
 
-
+KEY=os.getenv("KEY")
 
 n = 3000
 openai.api_key = os.environ["OPENAI_API_KEY"]
