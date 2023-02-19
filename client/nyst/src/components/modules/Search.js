@@ -4,16 +4,19 @@ import "./Player.css";
 import TextField from "@material-ui/core/TextField";
 import { Button, Card } from "@material-ui/core/";
 import BookmarkIcon from "@material-ui/icons/Search";
+import { CircularProgress, Grid } from "@mui/material";
 
 const Search = () => {
   const { strings } = require("../pages/Video.js");
   const [textInput, setTextInput] = useState("");
   const [result, setResult] = useState("");
+  const [done, isDone] = useState(false);
 
   const handleTextInputChange = (event) => {
     setTextInput(event.target.value);
   };
   const handleSubmit = (event) => {
+    isDone(true);
     event.preventDefault();
     console.log("Submitted");
     console.log(textInput);
@@ -21,6 +24,7 @@ const Search = () => {
       query: textInput,
     }).then((resp) => {
       setResult(resp["answer"]);
+      isDone(false);
     });
   };
 
@@ -41,7 +45,18 @@ const Search = () => {
           startIcon={<BookmarkIcon />}
         />
       </div>
-      <Card variant="outlined" hidden={result == ""} fullwidth>
+      <Grid align="center">
+        {done ? (
+          <>
+            <br></br>
+            <br></br>
+            <CircularProgress />
+          </>
+        ) : (
+          <></>
+        )}
+      </Grid>
+      <Card variant="outlined" hidden={result == "" || done} fullwidth>
         {result}
       </Card>
     </form>

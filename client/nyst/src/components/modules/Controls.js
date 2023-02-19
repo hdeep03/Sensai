@@ -136,31 +136,7 @@ const Controls = forwardRef(
 
     const open = Boolean(anchorEl);
     const id = open ? "simple-popover" : undefined;
-    const [butVis, setVis] = useState("hidden");
 
-    var helpbutton = <CircularProgress />;
-
-    useEffect(() => {
-      if (trans) {
-        setVis("visible");
-        helpbutton = (
-          <Grid item style={{ visibility: true }}>
-            <Button
-              onClick={onBookmark}
-              variant="contained"
-              color="primary"
-              startIcon={<BookmarkIcon />}
-            >
-              Mark Unsure
-            </Button>
-          </Grid>
-        );
-        console.log("hahahahahahahahahahahahahahaaha", trans);
-      } else {
-        setVis("hidden");
-        console.log("zssafaefsaefefagar", trans);
-      }
-    });
     return (
       <div ref={ref} className={classes.controlsWrapper}>
         <Grid
@@ -194,8 +170,6 @@ const Controls = forwardRef(
             ) : (
               <CircularProgress />
             )}
-
-            {/* {helpbutton} */}
           </Grid>
           <Grid
             container
