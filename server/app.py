@@ -8,6 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from questions import answer_question
 from notes import create_notes_pdf
+from fastapi.staticfiles import StaticFiles
 app = FastAPI()
 
 origins = ["*"]
@@ -37,6 +38,9 @@ class Query(BaseModel):
     query: str
 
 search_handler = SearchHandler()
+
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.post("/api/v0/search")
 def search(sq: SearchQuery):
@@ -69,7 +73,7 @@ def quiz(qr: QuizRequest):
     path, generated_quiz = generate_quiz(video_id, diff, quiz_type)
     if generated_quiz is None:
         return {"quiz": "Error"}, 422
-    return FileResponse(path)
+    return path
 
 @app.post("/api/v0/question")
 def question(sq: Query):
@@ -79,5 +83,5 @@ def question(sq: Query):
 @app.post("/api/v0/notes")
 def notes(video: VideoID):
     video_id = video.id
-    notes = create_notes_pdf('f079K1f2WQk')
-    return FileResponse(notes)
+    notes = create_notes_pdf(video_id)
+    return notes

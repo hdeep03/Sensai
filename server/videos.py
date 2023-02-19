@@ -13,6 +13,8 @@ def findStart(start, transcript):
     return len(transcript['starts']) - 1
 
 def findEnd(end, transcript):
+    if transcript is None:
+        return len(transcript['starts']-1)
     for i, seg_end in enumerate(transcript['ends']):
         if seg_end > end:
             return i

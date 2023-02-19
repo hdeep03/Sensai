@@ -38,7 +38,6 @@ def generate_shards(transcript):
 def generate_text_notes(video_id):
     transcript = load_transcript(video_id)
     shards = generate_shards(transcript)
-    print(shards)
     output_lines = []
     for shard in shards:
         try:
@@ -58,7 +57,7 @@ def generate_text_notes(video_id):
 
 def create_notes_pdf(video_id):
     notes = generate_text_notes(video_id)
-    path = os.path.join(CACHE_PATH, video_id, video_id+'_notes.pdf')
+    path = os.path.join('static', video_id+'_notes.pdf')
     c = canvas.Canvas(path, pagesize=letter)
     c.setFont('Vera', 12)
     t = c.beginText()
@@ -71,7 +70,6 @@ def create_notes_pdf(video_id):
         if line != '':
             fin.append("\n".join(wrap(line, 80)))
     out = "\n".join(fin)
-    print(out)
     t.textLines(out)
     c.drawText(t)
     c.showPage()

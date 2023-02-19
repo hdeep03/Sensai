@@ -86,7 +86,7 @@ def generate_quiz(video_id, difficulty, quiz_type):
         return path, returnString
 
 def create_pdf(quiz_text, video_id):
-    path = os.path.join(CACHE_PATH, video_id, video_id+'_quiz.pdf')
+    path = os.path.join('static', video_id+'_quiz.pdf')
     c = canvas.Canvas(path, pagesize=letter)
     c.setFont('Vera', 12)
     t = c.beginText()
@@ -99,7 +99,6 @@ def create_pdf(quiz_text, video_id):
         if line != '':
             fin.append("\n".join(wrap(line, 80)))
     out = "\n".join(fin)
-    print(out)
     t.textLines(out)
     c.drawText(t)
     c.showPage()
