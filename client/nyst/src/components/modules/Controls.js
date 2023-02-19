@@ -17,9 +17,9 @@ import VolumeDown from "@material-ui/icons/VolumeDown";
 import VolumeMute from "@material-ui/icons/VolumeOff";
 import FullScreen from "@material-ui/icons/Fullscreen";
 import Popover from "@material-ui/core/Popover";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Box, Stack, Divider } from "@mui/material";
 import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
-
+import Grid2 from "@mui/material/Unstable_Grid2";
 const useStyles = makeStyles((theme) => ({
   controlsWrapper: {
     visibility: "hidden",
@@ -169,7 +169,30 @@ const Controls = forwardRef(
                 </Button>
               </Grid>
             ) : (
-              <CircularProgress />
+              //   <Box
+              //     sx={{
+              //       backgroundColor: "primary.dark",
+              //       height: 50,
+              //       width: 200,
+              //     }}
+              //     variant="contained"
+              //     color="primary"
+              //   >
+              //     <Typography color="primary" bold>
+              //       Loading Features...
+              //     </Typography>
+              //     <CircularProgress />
+              //   </Box>
+              <Stack
+                direction="row"
+                divider={<Divider orientation="vertical" flexItem />}
+                spacing={2}
+              >
+                <Box color="white" bgcolor="primary" p={1}>
+                  Loading Features...
+                </Box>
+                <CircularProgress />
+              </Stack>
             )}
           </Grid>
           <Grid

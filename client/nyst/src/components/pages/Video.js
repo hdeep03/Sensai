@@ -34,7 +34,7 @@ import { makeStyles, withStyles } from "@material-ui/core/styles";
 
 import Slider from "@material-ui/core/Slider";
 import Tooltip from "@material-ui/core/Tooltip";
-import Grid from "@material-ui/core/Grid";
+import { CircularProgress, Grid } from "@mui/material";
 import Paper from "@material-ui/core/Paper";
 import VolumeUp from "@material-ui/icons/VolumeUp";
 import VolumeDown from "@material-ui/icons/VolumeDown";
@@ -198,20 +198,26 @@ function VideoPlayer(props) {
   const togglePopup = () => {
     setIsOpen(!isOpen);
   };
+  const [quizvis, setQuizvis] = useState(false);
+  const [notesvis, setNotesvis] = useState(false);
 
   useEffect(() => {
     if (props.trans) {
+      setQuizvis(true);
+      setNotesvis(true);
       post("http://localhost:8000/api/v0/quiz", {
         id: props.vidId,
         difficulty: "hard",
         quiz_type: "free response",
       }).then((ret) => {
         setQuizFile("http://localhost:8000/" + ret);
+        setQuizvis(false);
       });
       post("http://localhost:8000/api/v0/notes", {
         id: props.vidId,
       }).then((ret) => {
         setNotesFile("http://localhost:8000/" + ret);
+        setNotesvis(false);
       });
     }
   }, [props.trans]);
@@ -402,7 +408,13 @@ function VideoPlayer(props) {
                 <>
                   <div className="child flex-child">
                     <h1 className="headingText">
-                      Section Help at {strings.slice(-1)[0]} Second(s)
+                      Section Help at{" "}
+                      {parseInt(
+                        (parseInt(strings.slice(-1)[0]) -
+                          parseInt(strings.slice(-1)[0] % 60)) /
+                          60
+                      )}
+                      :{parseInt(strings.slice(-1)[0] % 60)} Second(s)
                     </h1>
                     <br></br>
                     <br></br>
@@ -430,13 +442,13 @@ function VideoPlayer(props) {
 
         <div className="parent flex-parent">
           <div className="child flex-child">
+            <TextField></TextField>
             <div
               onMouseMove={handleMouseMove}
               onMouseLeave={hanldeMouseLeave}
               ref={playerContainerRef}
               className={classes.playerWrapper}
             >
-              <TextField></TextField>
               <ReactPlayer
                 ref={playerRef}
                 width="100%"
@@ -515,7 +527,33 @@ function VideoPlayer(props) {
                 </Grid>
               ))}
             </Grid>
+            <Grid align="center">
+              {quizvis ? (
+                <>
+                  <br></br>
+                  <br></br>
+                  <CircularProgress />
+                  <br></br>
+                  <Typography>Loading Quiz...</Typography>
+                </>
+              ) : (
+                <></>
+              )}
+            </Grid>
             <iframe src={quizFile} width="100%" height="500px" />
+            <Grid align="center">
+              {notesvis ? (
+                <>
+                  <br></br>
+                  <br></br>
+                  <CircularProgress />
+                  <br></br>
+                  <Typography>Loading Notes...</Typography>
+                </>
+              ) : (
+                <></>
+              )}
+            </Grid>
             <iframe src={notesFile} width="100%" height="500px" />
           </div>
         </div>
