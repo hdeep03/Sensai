@@ -136,6 +136,7 @@ const Controls = forwardRef(
 
     const open = Boolean(anchorEl);
     const id = open ? "simple-popover" : undefined;
+    console.log(trans);
 
     return (
       <div ref={ref} className={classes.controlsWrapper}>
