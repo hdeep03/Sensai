@@ -15,18 +15,22 @@ import "animate.css/animate.min.css";
 
 export default function AboutUs() {
   const employees = [
-    { name: "John Doe", title: "Sales Manager", img: "assets/about/img1.jpg" },
-    {
-      name: "John Doe",
-      title: "CEO of the AGCTS",
-      img: "assets/about/img2.jpg"
+    { 
+        name: "Theo Jiang", 
+        title: "Developer", 
+        img: "assets/default_human.png" 
     },
     {
-      name: "John Doe",
-      title: "CTO of the AGCTS",
-      img: "assets/about/img3.jpg"
+      name: "Harsh Deep",
+      title: "Developer", 
+      img: "assets/default_human.png"
     },
-    { name: "John Doe", title: "Media Manager", img: "assets/about/img4.jpg" }
+    {
+      name: "Rithvik Ganesh",
+      title: "Developer", 
+      img: "assets/default_human.png"
+    },
+    { name: "Abhay Bestrapalli", title: "Developer", img: "assets/default_human.png" }
   ];
 
   return (
@@ -34,39 +38,21 @@ export default function AboutUs() {
       <Navbar background={true} page="about-us" />
       <img
         className="about-background"
-        src="assets/about/about-us-1.png"
+        src="assets/circuit_bgnd.png"
         alt="about us page"
       />
       <div className="about-container">
         <div className="about-title">
-          <span>ag</span> CTS
+          SensAI
         </div>
-        <div className="about-sub-title">Cyber Tech Solutions</div>
+        <div className="about-sub-title">Personalized video solutions</div>
         <div className="about-content">
           <div>
-            1. We follow the industry best practices aligned with your business
-          </div>
-          <div>
-            2. Trusted and reliable services to enhance your business growth
-          </div>
-          <div>
-            3. Certified and experienced professional to prove state of the art
-            consulting services
-          </div>
-          <div>
-            4. Agile and flexible consulting model so that your business pace is
-            never compromised
-          </div>
-          <div>
-            5. Cost-effective services tailored to needs of organizations of any
-            size and any domain
-          </div>
-          <div>
-            6. Extensive retail, Banking and other international experience
+            We are humans who created a website thats kinda cool ig :)
           </div>
         </div>
       </div>
-      <div className="emp-title">Team Members of AGCTS</div>
+      <div className="emp-title">Team Members of SensAI</div>
 
       <div className="emp-cards">
         {employees.map((emp, index) => {

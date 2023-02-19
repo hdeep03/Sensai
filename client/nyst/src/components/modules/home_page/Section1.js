@@ -51,18 +51,5 @@ export default function Section1() {
         </Carousel.Item>
         
       </Carousel>
-    // <div className="section-1">
-    //   <div className="background">
-        
-      
-
-    //   </div>
-
-    //   <div className="title">
-    //     <span>SensAI</span>
-    //   </div>
-
-    //   <div className="sub-title">Personalized video solutions</div>
-    // </div>
   );
 }

@@ -39,12 +39,10 @@ function Section2() {
   };
   return (
     <div className="section-2" id="information">
-      <div className="sp-title">
-        <div className="sp-content" />
+      <div className="sp-content" />
             <ScrollAnimation
                 animateIn="animate__backInRight"
                 animateOut="animate__backOutRight"
-                animateOnce={true}
                 duration={1}
             >
                 <Grid
@@ -81,14 +79,13 @@ function Section2() {
                     </Box>
                 </Grid>
             </ScrollAnimation>
-        </div>
+        
         <div className="audit-title" />\
       <div className="sp-title">
         <div className="sp-divider" />
             <ScrollAnimation
                     animateIn="animate__backInLeft"
                     animateOut="animate__backOutLeft"
-                    animateOnce={true}
                     duration={1}
                 >
                 <div className="sp-title-content">

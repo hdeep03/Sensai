@@ -3,6 +3,7 @@ import "./App.css";
 import "../utilities.css";
 import Home from "./pages/Home";
 import Video from "./pages/Video";
+import AboutUs from "./pages/AboutUs";
 import NavBar from "./modules/Navbar";
 // import { Router } from "@reach/router";
 import React from "react";
@@ -23,8 +24,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      {/* <Route path="/about-us" element={<AboutUs />} />
-      <Route path="/video-player" element={<VideoPlayer />} /> */}
+      <Route path="/about-us" element={<AboutUs />} />
       <Route path="/video" element={<Video />} />
     </Routes>
   );

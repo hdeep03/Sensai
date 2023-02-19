@@ -2,6 +2,8 @@ import "./Video.css";
 import "../../utilities.css";
 // import { Router } from "@react/router";
 import React from "react";
+import Navbar from "../modules/Navbar";
+import Footer from "../modules/Footer";
 import {
   AppBar,
   Container,
@@ -15,7 +17,10 @@ import {
 import { get, post } from "../../utilities.js";
 
 function Video() {
-  return <>sdavczasadsa</>;
+  return (<div>
+    <Navbar page="video-player" />
+    <Footer />
+  </div>);
 }
 
 export default Video;

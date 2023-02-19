@@ -8,14 +8,13 @@ export default function Section3() {
       <img src="assets/home_page_background1.png" alt="bkgnd" />
       <div className="audit-content">
         <div className="audit-content-details">
-          <ScrollAnimation animateIn="fadeIn" animateOut="fadeOut" duration={1}>
+          <ScrollAnimation animateIn="animate__zoomInUp" animateOut="animate__zoomOutUp" duration={1}>
             <div className="audit-title"><span>Try out</span> <span>a demo</span> video!</div>
           </ScrollAnimation>
           <ScrollAnimation
-            animateIn="fadeIn"
-            animateOut="fadeOut"
-            duration={1}
-            delay={500}
+            animateIn="animate__bounceIn"
+            animateOut="animate__bounceOut"
+            duration={0.5}
           >
             <div className="audit-subtitle">
               {" "}
@@ -23,10 +22,10 @@ export default function Section3() {
             </div>
           </ScrollAnimation>
           <ScrollAnimation
-            animateIn="fadeIn"
-            animateOut="fadeOut"
-            duration={1}
-            delay={1000}
+            animateIn="animate__bounceIn"
+            animateOut="animate__bounceOut"
+            duration={0.5}
+            delay={500}
           >
             <span className="audit-button">Load a demo</span>
           </ScrollAnimation>
