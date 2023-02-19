@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { get, post } from "../../utilities.js";
 import "./Player.css";
 import TextField from "@material-ui/core/TextField";
-import {Button, Card} from "@material-ui/core/";
+import { Button, Card } from "@material-ui/core/";
 import BookmarkIcon from "@material-ui/icons/Search";
 
 const Search = () => {
@@ -16,11 +16,11 @@ const Search = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Submitted");
-    console.log(textInput)
+    console.log(textInput);
     post("http://localhost:8000/api/v0/question", {
       query: textInput,
     }).then((resp) => {
-      setResult(resp['answer'])
+      setResult(resp["answer"]);
     });
   };
 
@@ -40,14 +40,10 @@ const Search = () => {
           variant="contained"
           startIcon={<BookmarkIcon />}
         />
-        
       </div>
-      <Card 
-        variant="outlined"
-        hidden={result==""}
-        fullWidth>
-          {result}
-        </Card>
+      <Card variant="outlined" hidden={result == ""} fullwidth>
+        {result}
+      </Card>
     </form>
   );
 };

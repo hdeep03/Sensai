@@ -140,8 +140,10 @@ const Controls = forwardRef(
     useEffect(() => {
       if (trans) {
         setVis("visible");
+        console.log("hahahahahahahahahahahahahahaaha");
       } else {
         setVis("hidden");
+        console.log("zssafaefsaefefagar");
       }
     });
     return (
