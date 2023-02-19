@@ -17,7 +17,7 @@ pdfmetrics.registerFont(TTFont('VeraBI', 'VeraBI.ttf'))
 
 
 n = 3000
-openai.api_key = "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"
+openai.api_key = "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"
 tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
 
 CACHE_PATH = './cache/'
