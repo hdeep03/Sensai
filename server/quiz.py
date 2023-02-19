@@ -12,10 +12,10 @@ pdfmetrics.registerFont(TTFont('Vera', 'Vera.ttf'))
 pdfmetrics.registerFont(TTFont('VeraBd', 'VeraBd.ttf'))
 pdfmetrics.registerFont(TTFont('VeraIt', 'VeraIt.ttf'))
 pdfmetrics.registerFont(TTFont('VeraBI', 'VeraBI.ttf'))
+KEY=os.getenv("KEY")
 
 CACHE_PATH = './cache/'
-openai.api_key = "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"
-n = 12000
+openai.api_key = os.environ["OPENAI_API_KEY"]
 tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
 
 def get_transcript(video_id):

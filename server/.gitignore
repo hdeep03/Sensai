@@ -1,4 +1,4 @@
 cache/
 .DS_Store
 secrets.env
-
+.env
