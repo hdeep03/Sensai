@@ -452,6 +452,7 @@ function VideoPlayer(props) {
               ref={playerContainerRef}
               className={classes.playerWrapper}
             >
+              <TextField></TextField>
               <ReactPlayer
                 ref={playerRef}
                 width="100%"

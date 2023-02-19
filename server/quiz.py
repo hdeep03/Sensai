@@ -101,7 +101,6 @@ def create_pdf(quiz_text, video_id):
     out = "\n".join(fin)
     t.textLines(out)
     c.drawText(t)
-    c.showPage()
     c.save()
     return path
 

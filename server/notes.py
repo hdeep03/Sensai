@@ -72,11 +72,8 @@ def create_notes_pdf(video_id):
     out = "\n".join(fin)
     t.textLines(out)
     c.drawText(t)
-    c.showPage()
     c.save()
     return path
-
-
 
 if __name__ == "__main__":
     print(generate_text_notes('f079K1f2WQk'))
